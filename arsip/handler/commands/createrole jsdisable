@@ -1,0 +1,20 @@
+module.exports.run = async (bot, message, args) => {
+  if (!message.member.hasPermission("ADMINISTRATOR")) {
+    return message.reply("Missing Permission").then(m => m.delete(5000));
+  }
+  message.guild.roles.create({
+    data: {
+      name: "Super Cool People",
+      color: "BLUE"
+    }
+  });
+  message.channel.send("Role Created");
+};
+
+module.exports.config = {
+  name: "createrole",
+  description: "",
+  usage: "/create",
+  accessableby: "Members",
+  aliases: ["Create"]
+};
