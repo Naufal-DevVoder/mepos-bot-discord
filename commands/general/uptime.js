@@ -11,7 +11,7 @@ module.exports = {
       .duration(bot.uptime)
       .format("d[ days], h[ hours], m[ minutes, and ]s[ seconds]");
     const uptimeEmbed = new Discord.MessageEmbed()
-      .setColor("BLUE")
+      .setColor(message.guild.me.displayHexColor)
       .setAuthor(
         `${bot.user.username}'s uptime`,
         bot.user.displayAvatarURL({ format: "png", dynamic: true })

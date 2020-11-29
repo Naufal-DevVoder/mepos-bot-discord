@@ -9,7 +9,6 @@ module.exports = {
     
     if (message.channel.id == "613979762527830028") {
       message.channel.send("You can't playing minesweeper in general chat");
-      // If the channel it wasn't verification channel, ignore it.
       return;
     }
     const Minesweeper = require("discord.js-minesweeper");

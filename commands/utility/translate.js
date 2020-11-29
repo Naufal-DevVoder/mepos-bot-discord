@@ -119,7 +119,7 @@ module.exports = {
       .then(res => {
       
       let translateembed = new discord.MessageEmbed()
-      .setColor("RANDOM")
+     .setColor(message.guild.me.displayHexColor)
       .addField("Translate result", "```" + res.text + "```")
       .setAuthor(`Kaguya Translator`, bot.user.displayAvatarURL({ format: "png", dynamic: true }))
       .setFooter(message.author.tag,message.author.displayAvatarURL({ format: "png", dynamic: true }))

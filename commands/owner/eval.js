@@ -1,41 +1,25 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "eval",
   aliases: ["ev"],
   category: "🤴 | Owner",
   run: async (bot, message, args) => {
-        if (message.author.id !== '435419273590996993') return;
-        const embed = new MessageEmbed()
-            .setTitle('Evaluating...')
-        const msg = await message.channel.send(embed);
-        try {
-            const data = eval(args.join(' ').replace(/```/g, ''));
-            const embed = new MessageEmbed()
-                .setTitle('Output: ')
-                .setDescription(await data)
-            await msg.edit(embed)
-            await msg.react('✅')
-            await msg.react('❌')
-            const filter = (reaction, user) => (reaction.emoji.name === '❌' || reaction.emoji.name === '✅') && (user.id === message.author.id);
-            msg.awaitReactions(filter, { max: 1 })
-                .then((collected) => {
-                    collected.map((emoji) => {
-                        switch (emoji._emoji.name) {
-                            case '✅':
-                                msg.reactions.removeAll();
-                                break;
-                            case '❌':
-                                msg.delete()
-                                break;
-                        }
-                    })
-                })
-        } catch (e) {
-            const embed = new MessageEmbed()
-                .setTitle('An Error has occured')
-            return await msg.edit(embed);
+    if (message.author.id !== "435419273590996993") return;
+    try {
+      let codein = args.join(" ");
+      let code = eval(codein);
 
-        }
+      if (typeof code !== "string")
+        code = require("util").inspect(code, { depth: 0 });
+      const embed = new MessageEmbed()
+        .setAuthor("Eval")
+        .setColor(message.guild.me.displayHexColor)
+        .addField(":inbox_tray: Input", `\`\`\`js\n${codein}\`\`\``)
+        .addField(":outbox_tray: Output", `\`\`\`js\n${code}\n\`\`\``);
+      message.channel.send(embed);
+    } catch (e) {
+      message.channel.send(`\`\`\`js\n${e}\n\`\`\``);
     }
-}
+  }
+};

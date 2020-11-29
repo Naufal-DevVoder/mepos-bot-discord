@@ -24,7 +24,7 @@ run: async (bot, message, args) => {
           .setTimestamp(Date.now())
           .setTitle(`${bot.user.username}'s ship machine'`)
           .setDescription(`**${robber}** & **${user}**, your ship rate is... ${ship}%♥`)
-          .setColor(`BLUE`)
+          .setColor(message.guild.me.displayHexColor)
           .setFooter(`Ship by ${message.author.username}`)
           message.channel.send(embed).then(m => {
 m.react('❤')

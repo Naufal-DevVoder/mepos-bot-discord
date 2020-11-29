@@ -11,7 +11,6 @@ module.exports = {
       error,
       result
     ) {
-      // 'C' can be changed to 'F' for farneheit results
       if (error) return message.channel.send(error);
       if (!args[0]) return message.channel.send("Please specify a location");
 
@@ -25,7 +24,7 @@ module.exports = {
         .setDescription(`**${current.skytext}**`)
         .setAuthor(`Weather forecast for ${current.observationpoint}`)
         .setThumbnail(current.imageUrl)
-        .setColor("RANDOM")
+        .setColor(message.guild.me.displayHexColor)
         .addField("❯ Timezone", "```" + `UTC${location.timezone}` + "```", true)
         .addField("❯ Degree Type", "```Celsius```", true)
         .addField(

@@ -24,7 +24,7 @@ run: async (bot, message, args) => {
           .setTimestamp(Date.now())
           .setTitle(`${bot.user.username}'s simp machine`)
           .setDescription(`**${user.username}** simp rate is... ${ship}%`)
-          .setColor(`BLUE`)
+          .setColor(message.guild.me.displayHexColor)
           message.channel.send(embed)
  
   usedCommand.add(message.author.id);

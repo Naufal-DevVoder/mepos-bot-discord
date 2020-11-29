@@ -22,7 +22,7 @@ run: async (bot, message, args) => {
     const embed = new MessageEmbed()
       
       .setImage(url)
-      .setColor("BLUE")
+      .setColor(message.guild.me.displayHexColor)
 
     await message.channel.send(embed);
       usedCommand.add(message.author.id);

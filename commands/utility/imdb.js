@@ -11,12 +11,12 @@ module.exports = {
       return message.channel.send("Please give the name of movie or series");
     }
 
-    const imob = new imdb.Client({ apiKey: "91a3619d" }); //You need to paste you imdb api
+    const imob = new imdb.Client({ apiKey: process.env.IMDB }); //IMDB API
 
     let movie = await imob.get({ name: args.join(" ") });
 
     let embed = new discord.MessageEmbed()
-    .setColor("RANDOM")
+    .setColor(message.guild.me.displayHexColor)
     .setTitle(movie.title)
     .setURL(movie.imdburl)
     .setDescription(movie.plot)

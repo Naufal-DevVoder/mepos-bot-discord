@@ -33,7 +33,7 @@ module.exports = {
       return;
     }
     let ballembed = new Discord.MessageEmbed()
-      .setColor("BLUE")
+      .setColor(message.guild.me.displayHexColor)
       .setAuthor(
         `${message.author.username}'s question`,
         message.author.displayAvatarURL({ format: "png", dynamic: true })

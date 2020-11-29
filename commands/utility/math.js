@@ -22,7 +22,7 @@ module.exports = {
         `${message.author.username}'s question`,
         message.author.displayAvatarURL({ format: "png", dynamic: true })
       )
-      .setColor("RANDOM")
+      .setColor(message.guild.me.displayHexColor)
       .setTitle("Calculator")
       .addField("Question", `\`\`\`css\n${args.join(" ")}\`\`\``)
       .addField("Answer", `\`\`\`css\n${resp}\`\`\``)

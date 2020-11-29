@@ -16,7 +16,7 @@ module.exports = {
     let embedAnnouncement = new Discord.MessageEmbed()
       .setTitle("📢 Announcement! 📢")
       .setDescription(announceDescription)
-      .setColor("BLUE");
+      .setColor(message.guild.me.displayHexColor)
     let msgEmbed = await announceChannel.send(embedAnnouncement);
     message.delete();
   }

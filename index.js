@@ -7,8 +7,7 @@ const { token, default_prefix } = require("./config.json");
 const { config } = require("dotenv");
 const Discord = require("discord.js");
 const bot = new Discord.Client({
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
-  disableMentions: "all"
+  partials: ["MESSAGE", "CHANNEL", "REACTION"]
 });
 const db = require("quick.db");
 const alexa = require("alexa-bot-api");
@@ -105,7 +104,7 @@ bot.on("message", async message => {
 
     if (status) {
       const embed = new Discord.MessageEmbed()
-        .setColor("RANDOM")
+        .setColor(message.guild.me.displayHexColor)
         .setAuthor(`${memafk.username} is currently AFK`)
         .setThumbnail(memafk.displayAvatarURL({ format: "png", dynamic: true }))
         .addField(`Reason`, ` ${status}`)
@@ -118,7 +117,7 @@ bot.on("message", async message => {
   if (authorStatus) {
     message.member.setNickname(afterAfk);
     const embed = new Discord.MessageEmbed()
-      .setColor("RANDOM")
+      .setColor(message.guild.me.displayHexColor)
       .setDescription(`**${message.author.tag}** is no longer AFK.`);
     message.channel.send(embed).then(i => i.delete({ timeout: 5000 }));
     afk.delete(message.author.id);
@@ -236,6 +235,124 @@ bot.on("guildMemberRemove", async member => {
                         ${member.guild.memberCount} impostor remain
 　 　　。　　　　　　ﾟ　　　.　　　　　.
 ,　　　　.　 .　　       .               。`);
+});
+
+//==========================================REACTION ADD==========================================
+bot.on("messageReactionAdd", async (reaction, user) => {
+  if (user.bot) return
+  let message = await reaction.message;
+  if (
+    message.reactions.cache.forEach(reaction =>
+      reaction.users.cache.has(user.id)
+    )
+  ) {
+    console.log("yes");
+  }
+  let menus = db.get(`rr_${message.guild.id}`);
+  let menu;
+  let menuIndex;
+  if (!menus) return;
+  for (let i = 0; i < menus.length; i++) {
+    if (menus[i].ChannelID == message.channel.id && menus[i].ID == message.id) {
+      menuIndex = i;
+      menu = menus[i];
+    }
+  }
+  if (!menu) return;
+  let role;
+  for (let i = 0; i < menu.roles.length; i++) {
+    let type = reaction.emoji.id ? reaction.emoji.id : reaction.emoji.name;
+    if (type == menu.roles[i].reaction) {
+      role = menu.roles[i].role;
+    }
+  }
+  if (menu.type != "single") {
+    role = message.guild.roles.cache.find(x => x.id == role);
+    if (!role) return;
+    let member = message.guild.members.cache.find(x => x.id == user.id);
+    if (!member) return;
+    if (member.roles.cache.has(role.id)) return;
+    member.roles.add(role.id);
+    return;
+  } else {
+    console.log(menu.usersReacted)
+    if (menu.usersReacted.includes(user.id)){
+      await reaction.users.remove(user.id);
+      return user
+        .send(
+          "You have already took role from this reaction set and you cannot take another!"
+        )
+        .catch(e => {
+          return;
+        });
+    }
+    role = message.guild.roles.cache.find(x => x.id == role);
+    if (!role) return;
+    let member = message.guild.members.cache.find(x => x.id == user.id);
+    if (!member) return;
+    if (member.roles.cache.has(role.id)) return;
+    member.roles.add(role.id);
+    menu.usersReacted.push(user.id);
+    menus[menuIndex] = menu;
+    db.set(`rr_${message.guild.id}`, menus);
+    return;
+  }
+}); 
+
+//=======================================Reaction Remove=========================================================
+bot.on("messageReactionRemove", async (reaction, user) => {
+  if (user.bot) return
+  let message = await reaction.message;
+  let menus = db.get(`rr_${message.guild.id}`);
+  let menu;
+  let menuIndex;
+  if (!menus) return;
+  for (let i = 0; i < menus.length; i++) {
+    if (menus[i].ChannelID == message.channel.id && menus[i].ID == message.id) {
+      menu = menus[i];
+      menuIndex = i;
+    }
+  }
+  if (!menu) return;
+  let role;
+  for (let i = 0; i < menu.roles.length; i++) {
+    let type = reaction.emoji.id ? reaction.emoji.id : reaction.emoji.name;
+    if (type == menu.roles[i].reaction) {
+      role = menu.roles[i].role;
+    }
+  }
+  if (menu.type != "single") {
+    role = message.guild.roles.cache.find(x => x.id == role);
+    if (!role) return;
+    let member = message.guild.members.cache.find(x => x.id == user.id);
+    if (!member) return;
+    if (!member.roles.cache.has(role.id)) return;
+    member.roles.remove(role.id);
+    return;
+  } else {
+    role = message.guild.roles.cache.find(x => x.id == role);
+    if (!role) return;
+    let member = message.guild.members.cache.find(x => x.id == user.id);
+    if (!member) return;
+    if (!member.roles.cache.has(role.id)) return;
+    console.log(menu.usersReacted)
+    if (menu.usersReacted.includes(user.id)) {
+      let index;
+      for (let i = 0; i < menu.usersReacted.length; i++) {
+        if (menu.usersReacted[i] == user.id) {
+          index = i;
+        }
+      }
+      if (index) {
+        menu.usersReacted.splice(index, 1);
+        console.log(menu.usersReacted)
+        menus[menuIndex] = menu;
+        db.set(`rr_${message.guild.id}`, menus);
+      }
+    }
+    member.roles.remove(role.id);
+    return;
+  }
 });
 
 bot.login(token);

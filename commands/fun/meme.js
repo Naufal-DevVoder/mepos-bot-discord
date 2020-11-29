@@ -20,7 +20,7 @@ module.exports = {
       embed.setTitle(`${memeTitle}`);
       embed.setURL(`${memeUrl}`);
       embed.setImage(memeImage);
-      embed.setColor("BLUE");
+      embed.setColor(message.guild.me.displayHexColor)
       embed.setFooter(
         `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}`
       );

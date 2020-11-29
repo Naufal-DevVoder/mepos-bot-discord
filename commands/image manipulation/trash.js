@@ -32,7 +32,7 @@ module.exports = {
         return message.channel.send(`An error occured!`);
       }
 
-      const embed = new MessageEmbed().setImage(data.url).setColor("BLUE");
+      const embed = new MessageEmbed().setImage(data.url).setColor(message.guild.me.displayHexColor)
 
       await message.channel.send(embed);
       usedCommand.add(message.author.id);

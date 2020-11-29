@@ -21,7 +21,7 @@ module.exports = {
         { format: "png" }
       )}`;
 
-      const embed = new MessageEmbed().setImage(url).setColor("BLUE");
+      const embed = new MessageEmbed().setImage(url).setColor(message.guild.me.displayHexColor)
 
       await message.channel.send(embed);
       usedCommand.add(message.author.id);
