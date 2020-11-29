@@ -33,7 +33,7 @@ module.exports = {
           try {
             let embed = new MessageEmbed()
               .setTitle(body.data[0].attributes.titles.en)
-              .setColor("RANDOM")
+              .setColor(message.guild.me.displayHexColor)
               .setDescription(body.data[0].attributes.synopsis)
               .setThumbnail(body.data[0].attributes.posterImage.original)
               .addField("Ratings", body.data[0].attributes.averageRating)
@@ -41,7 +41,6 @@ module.exports = {
               .setImage(body.data[0].attributes.coverImage.large)
               .setTimestamp()
               .setFooter(`Thanks for using ${bot.user.username}`);
-            //try it
 
             message.channel.send(embed).then(i => i.delete({ timeout: 15000 }));
             msg.delete();
@@ -55,7 +54,7 @@ module.exports = {
       usedCommand.add(message.author.id);
       setTimeout(() => {
         usedCommand.delete(message.author.id);
-      }, 10000); //You can set the ammount of the cooldown here! Its Formated to Miliseconds.
+      }, 10000);
     }
   }
 };

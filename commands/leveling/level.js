@@ -39,7 +39,7 @@ module.exports = {
 
     let embed = new discord.MessageEmbed()
       .setAuthor(user.username, message.guild.iconURL())
-      .setColor("#ff2050")
+      .setColor(message.guild.me.displayHexColor)
       .setThumbnail(user.avatarURL()).setDescription(`**LEVEL** - ${level}
 **XP** - ${remxp}/${levelxp}`);
 

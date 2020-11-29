@@ -68,7 +68,7 @@ module.exports = {
 
     channel.send(
       new MessageEmbed()
-        .setColor("BLUE")
+        .setColor(message.guild.me.displayHexColor)
         .setAuthor(
           `Server Info "${serverInfo.name}"`,
           message.guild.iconURL({ format: "png", dynamic: true })

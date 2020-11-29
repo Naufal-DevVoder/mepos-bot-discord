@@ -11,7 +11,7 @@ module.exports = {
     let iq = Math.floor(Math.random() * 200) + 30;
 
     let brainembed = new Discord.MessageEmbed()
-      .setColor("RANDOM")
+      .setColor(message.guild.me.displayHexColor)
       .setTitle(`${brainuser.username}'s IQ`)
 
       .setDescription(`${brainuser.username}'s iq is ${iq}`);

@@ -41,7 +41,7 @@ module.exports = {
     });
     
     const avatarEmbed = new Discord.MessageEmbed()
-      .setColor("RANDOM")
+      .setColor(message.guild.me.displayHexColor)
       .setTitle("Avatar")
       .setFooter(`Thanks for using ${bot.user.username}`)
       .setAuthor(

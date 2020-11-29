@@ -56,7 +56,7 @@ module.exports = {
         message.author.displayAvatarURL()
       )
 
-      .setColor("BLUE").setDescription(`
+      .setColor(message.guild.me.displayHexColor).setDescription(`
 
 **Role: ** ${name}
 

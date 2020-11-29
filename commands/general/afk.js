@@ -10,7 +10,7 @@ module.exports = {
   run: async (bot, message, args) => {
     const status = new db.table("AFKs");
     let afk = await status.fetch(message.author.id);
-    const embed = new Discord.MessageEmbed().setColor("RANDOM");
+    const embed = new Discord.MessageEmbed().setColor(message.guild.me.displayHexColor)
     const afterAfk = message.member.displayName.replace(afk, "");
     let member =
       message.author || message.member || message.mentions.members.first();

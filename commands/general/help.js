@@ -54,7 +54,7 @@ module.exports = {
           inline: true
         })
         .setThumbnail(message.guild.iconURL({ format: "png", dynamic: true }))
-        .setColor("RANDOM")
+        .setColor(message.guild.me.displayHexColor)
         .setFooter(bot.user.username, bot.user.displayAvatarURL());
 
       return message.channel.send(embed);

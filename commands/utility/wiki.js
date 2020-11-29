@@ -38,7 +38,7 @@ module.exports = {
           "Wikipedia",
           "https://media.discordapp.net/attachments/739051913651159071/739186784923025549/1200px-Wikipedia-logo-v2.svg.png?width=495&height=452"
         )
-        .setColor("RANDOM");
+        .setColor(message.guild.me.displayHexColor)
       return message.channel.send(embed);
     } catch (err) {
       const embed = new Discord.MessageEmbed()
@@ -51,7 +51,7 @@ module.exports = {
           "Wikipedia",
           "https://media.discordapp.net/attachments/739051913651159071/739186784923025549/1200px-Wikipedia-logo-v2.svg.png?width=495&height=452"
         )
-        .setColor("RANDOM");
+        .setColor(message.guild.me.displayHexColor)
       return message.channel.send(embed);
     }
   }

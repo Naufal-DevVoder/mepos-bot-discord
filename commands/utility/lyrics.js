@@ -1,9 +1,6 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
-const Color = `RANDOM`;
-const Genius = new (require("genius-lyrics")).Client(
-  "XWCg4RcTz3eBeI-nXzqvtd9hXGVqV5L1RP-o5PI9kJ6eML1DZYsvsLidgvqnfJRr"
-);
+const Genius = new (require("genius-lyrics")).Client(process.env.GENIUS);
 
 module.exports = {
   name: "lyrics",
@@ -23,7 +20,7 @@ module.exports = {
         .then(lyrics => {
           message.channel.send(
             new MessageEmbed()
-              .setColor(Color)
+              .setColor(message.guild.me.displayHexColor)
               .setTitle(`${song.title} Lyrics`)
               .setDescription(
                 lyrics.length > 1900 ? `${lyrics.substr(0, 1900)}...` : lyrics

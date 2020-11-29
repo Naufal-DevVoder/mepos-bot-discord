@@ -12,6 +12,4 @@ module.exports = {
   message.channel.send(Hastebin);
     message.delete();
   }
-  // message.channel.send("🏓 Pong! `" + bot.ws.ping + "ms`");
-  //message.delete({ timeout: 4000 }); //angkanya bebas
 };

@@ -10,7 +10,7 @@ run: async (bot, message, args) => {
         if (!args[0]){
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`${message.author.username} has paid their respects.`, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
-                .setColor('BLUE')
+                .setColor(message.guild.me.displayHexColor)
                 .setFooter(`Press F to pay your respects.`);
             message.channel.send({ embed }).then(m => m.react("🇫"));
 
@@ -19,7 +19,7 @@ run: async (bot, message, args) => {
         } else {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic : true }))
-                .setColor('BLUE')
+                .setColor(message.guild.me.displayHexColor)
                 .setDescription(`${message.author} has paid their respects to ${args.join(" ")}`)
                 .setFooter(`Press F to pay your respects.`);
             message.channel.send({ embed }).then(m => m.react("🇫"));

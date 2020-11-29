@@ -201,7 +201,7 @@ module.exports = {
           return `${i} - ${opt}\n`;
         })
       )
-      .setColor(`RANDOM`)
+      .setColor(message.guild.me.displayHexColor)
       .setFooter(
         `Reply to this message with the correct question number! You have 10 seconds.`
       );

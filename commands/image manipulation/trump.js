@@ -16,7 +16,7 @@ module.exports = {
       }
       const url = `https://api.no-api-key.com/api/v2/trump?message=`;
       const encoded = url + encodeURIComponent(text);
-      const embed = new MessageEmbed().setImage(encoded).setColor("BLUE");
+      const embed = new MessageEmbed().setImage(encoded).setColor(message.guild.me.displayHexColor)
       await message.channel.send(embed);
     } catch (e) {
       console.log(e);
